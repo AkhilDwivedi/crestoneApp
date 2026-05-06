@@ -1,0 +1,61 @@
+{
+  "summary": "Tested PropFlo CRM (FastAPI + Expo Router) end-to-end. Backend: 16/16 pytest passed including auth, dashboard stats, seeded lists, leads CRUD, AI summary, deals stage update, task complete. Frontend: login (prefilled creds), dashboard KPIs, all 5 bottom tabs, leads filter chips, lead detail, new-lead screen, property cards + detail, pipeline kanban with 6 columns and move-stage sheet, More -> Tasks/Contacts navigation all work cleanly. Two issues found (see below).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "POST /api/leads/{id}/ai-summary",
+        "issue": "Returned 500 on second call during UI test. Backend log shows 'litellm.BadRequestError: Budget has been exceeded! Current cost: 0.001175, Max budget: 0.001' from EMERGENT_LLM_KEY. The pytest call (first request) succeeded. This is NOT a code bug; it is the LLM key/budget configuration. Backend correctly surfaces the error as 500."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "more.tsx logout",
+        "issue": "Logout uses React Native Alert.alert which on web maps to window.confirm. It works for real users (one click on OK) but is a deviation from the otherwise custom dark UI and is slightly fragile for automated tests. Suggest using a custom themed modal for consistency on web.",
+        "testID": "logout-button",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "global",
+        "issues": [
+          "RN-Web warning: 'shadow*' style props are deprecated. Use 'boxShadow'. Cosmetic console warning only, no functional impact."
+        ]
+      }
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_propflo_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Verify EMERGENT_LLM_KEY budget for /api/leads/{id}/ai-summary - the current key reports max budget 0.001 and is exceeded after one call. Either rotate / top up the key or expect the AI Summary feature to fail on subsequent calls.",
+    "(Optional) Replace Alert.alert with a custom themed confirm modal in (tabs)/more.tsx logout flow to match dark/orange theme on web.",
+    "(Optional) Migrate React Native shadow* props to boxShadow to silence deprecation warnings on web."
+  ],
+  "critical_code_review_comments": [
+    "CORS allow_origins=['*'] with allow_credentials=False is fine since frontend uses Bearer token in AsyncStorage; cookies are still set but not required for the mobile flow.",
+    "bcrypt hashing ($2b$) with JWT HS256, 7-day expiry - matches playbook expectations.",
+    "Brute-force lockout implemented (5 attempts -> 15 min) - confirmed in code (not exhaustively tested to avoid locking admin).",
+    "seed_users is idempotent (checks find_one before insert). seed_demo_data is gated on leads count == 0 - good.",
+    "All endpoints exclude Mongo _id correctly.",
+    "server.py is 663 lines, approaching the 700-line guideline; consider splitting routers (auth/leads/properties/etc.) into modules in next iteration."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_propflo_api.py (created)"
+  ],
+  "success_rate": {
+    "backend": "100% (16/16 pytest); AI summary fails after LLM key budget exhausted (infra, not code)",
+    "frontend": "~95% (all major flows verified; logout depends on browser confirm dialog)"
+  },
+  "seed_data_creation": "Used backend's built-in seeding (admin@propflo.com, agent@propflo.com, 6 leads, 6 properties, 4 contacts, 6 deals, 5 tasks). No manual seeding required.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend public URL is in EXPO_PUBLIC_BACKEND_URL (not EXPO_BACKEND_URL): https://realty-connect-113.preview.emergentagent.com. Bottom-tab labels (Leads/Properties/Pipeline/More) are not unique on the page; use page.get_by_role('button', name=label, exact=True).last to navigate. AI summary endpoint may return 500 if the EMERGENT_LLM_KEY budget is exhausted - check /var/log/supervisor/backend.err.log for litellm BadRequestError before assuming a code bug.",
+  "rca_of_issue": "AI Summary 500: emergentintegrations -> litellm -> OpenAIException 'Budget has been exceeded! Current cost: 0.001175, Max budget: 0.001'. Reproduction: call POST /api/leads/{id}/ai-summary twice in quick succession with the current EMERGENT_LLM_KEY. Mitigation: rotate/refresh the key or raise the budget; backend code correctly catches and returns 500 with detail message."
+}
