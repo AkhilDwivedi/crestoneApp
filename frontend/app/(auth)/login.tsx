@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView,
-  Platform, ScrollView, ActivityIndicator,
+  Platform, ScrollView, ActivityIndicator, Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, useRouter } from 'expo-router';
@@ -39,11 +39,12 @@ export default function Login() {
       >
         <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
           <View style={styles.brandWrap}>
-            <View style={styles.brandIcon}>
-              <Ionicons name="business" size={28} color={colors.text} />
-            </View>
-            <Text style={styles.brandName}>PropFlo</Text>
-            <Text style={styles.brandTag}>Real Estate CRM</Text>
+            <Image
+              source={require('../../assets/images/crestone-logo.png')}
+              style={styles.brandLogo}
+              resizeMode="contain"
+            />
+            <Text style={styles.brandTag}>Turning Dreams Into Doorways</Text>
           </View>
 
           <View style={styles.card} testID="login-card">
@@ -94,7 +95,7 @@ export default function Login() {
             </TouchableOpacity>
 
             <View style={styles.footer}>
-              <Text style={typography.body}>New to PropFlo?</Text>
+              <Text style={typography.body}>New to Crestone?</Text>
               <Link href="/(auth)/register" asChild>
                 <TouchableOpacity testID="goto-register-link">
                   <Text style={styles.linkText}> Create account</Text>
@@ -118,15 +119,10 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.bg },
   scroll: { flexGrow: 1, padding: spacing.lg, justifyContent: 'center' },
   brandWrap: { alignItems: 'center', marginBottom: spacing.xl },
-  brandIcon: {
-    width: 64, height: 64, borderRadius: 18,
-    backgroundColor: colors.primary,
-    alignItems: 'center', justifyContent: 'center',
-    shadowColor: colors.primary, shadowOpacity: 0.5, shadowRadius: 20, shadowOffset: { width: 0, height: 8 },
-    marginBottom: 12,
+  brandLogo: {
+    width: 220, height: 220, marginBottom: -10,
   },
-  brandName: { fontSize: 32, fontWeight: '800', color: colors.text, letterSpacing: -1 },
-  brandTag: { fontSize: 13, color: colors.textMuted, marginTop: 4, letterSpacing: 1, textTransform: 'uppercase' },
+  brandTag: { fontSize: 11, color: colors.primary, marginTop: 4, letterSpacing: 3, textTransform: 'uppercase', fontWeight: '600' },
   card: {
     backgroundColor: colors.bg2,
     borderRadius: radius.xxl,

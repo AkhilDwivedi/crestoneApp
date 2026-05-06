@@ -74,8 +74,8 @@ export default function More() {
         </View>
 
         <View style={styles.appInfo}>
-          <Text style={styles.appInfoTitle}>PropFlo CRM</Text>
-          <Text style={styles.appInfoText}>v1.0.0 · Real Estate Sales Platform</Text>
+          <Text style={styles.appInfoTitle}>Crestone Realty</Text>
+          <Text style={styles.appInfoText}>v1.0.0 · Turning Dreams Into Doorways</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

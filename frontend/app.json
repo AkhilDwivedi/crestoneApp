@@ -1,20 +1,20 @@
 {
   "expo": {
-    "name": "PropFlo CRM",
-    "slug": "propflo-crm",
+    "name": "Crestone Realty",
+    "slug": "crestone-realty",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "propflo",
+    "scheme": "crestone",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.propflo.crm",
+      "bundleIdentifier": "com.crestone.realty",
       "buildNumber": "1"
     },
     "android": {
-      "package": "com.propflo.crm",
+      "package": "com.crestone.realty",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",

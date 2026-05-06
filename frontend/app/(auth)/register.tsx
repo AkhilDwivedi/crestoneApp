@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView,
-  Platform, ScrollView, ActivityIndicator,
+  Platform, ScrollView, ActivityIndicator, Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, useRouter } from 'expo-router';
@@ -44,9 +44,11 @@ export default function Register() {
           </TouchableOpacity>
 
           <View style={styles.brandWrap}>
-            <View style={styles.brandIcon}>
-              <Ionicons name="business" size={28} color={colors.text} />
-            </View>
+            <Image
+              source={require('../../assets/images/crestone-logo.png')}
+              style={styles.brandLogo}
+              resizeMode="contain"
+            />
             <Text style={styles.brandName}>Create account</Text>
             <Text style={styles.brandTag}>Start managing your portfolio</Text>
           </View>
@@ -111,11 +113,8 @@ const styles = StyleSheet.create({
   scroll: { flexGrow: 1, padding: spacing.lg },
   back: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
   brandWrap: { alignItems: 'center', marginVertical: spacing.lg },
-  brandIcon: {
-    width: 56, height: 56, borderRadius: 16,
-    backgroundColor: colors.primary,
-    alignItems: 'center', justifyContent: 'center',
-    marginBottom: 12,
+  brandLogo: {
+    width: 120, height: 120, marginBottom: 4,
   },
   brandName: { fontSize: 26, fontWeight: '800', color: colors.text, letterSpacing: -0.5 },
   brandTag: { fontSize: 13, color: colors.textMuted, marginTop: 4 },
