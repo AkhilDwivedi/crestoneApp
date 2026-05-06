@@ -1,0 +1,120 @@
+{
+  "theme": "Dark",
+  "archetype": "5 (Jewel & Luxury) mixed with 4 (Swiss & High-Contrast) for Mobile CRM",
+  "mood": "Premium, professional, energetic, and highly functional",
+  "typography": {
+    "primary_font": "Plus Jakarta Sans",
+    "secondary_font": "Plus Jakarta Sans",
+    "rules": {
+      "headings": "Tracking-tight (`tracking-tight`), Font weight Bold (`font-bold`) to Black (`font-black`)",
+      "body": "Regular weight, slightly relaxed line height (`leading-relaxed`)",
+      "overline": "Uppercase, tiny, wide spacing (`tracking-[0.2em]`) for section headers or status tags"
+    },
+    "scale": {
+      "h1": "text-3xl sm:text-4xl font-bold tracking-tight text-white",
+      "h2": "text-2xl sm:text-3xl font-semibold tracking-tight text-white",
+      "h3": "text-xl sm:text-2xl font-semibold tracking-tight text-white",
+      "h4": "text-lg sm:text-xl font-medium tracking-tight text-white",
+      "body": "text-base text-neutral-300",
+      "small": "text-sm text-neutral-400",
+      "tiny": "text-xs font-medium tracking-widest text-neutral-500 uppercase"
+    }
+  },
+  "colors": {
+    "background": {
+      "primary": "#0A0A0A",
+      "secondary": "#111111",
+      "surface": "#1A1A1A",
+      "glass": "rgba(255, 255, 255, 0.03)"
+    },
+    "accent": {
+      "primary": "#FF6B00",
+      "primary_hover": "#E66000",
+      "primary_light": "rgba(255, 107, 0, 0.15)"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A3A3A3",
+      "muted": "#737373",
+      "inverse": "#000000"
+    },
+    "border": {
+      "subtle": "rgba(255, 255, 255, 0.08)",
+      "focus": "#FF6B00"
+    },
+    "status": {
+      "hot": "#EF4444",
+      "hot_bg": "rgba(239, 68, 68, 0.15)",
+      "warm": "#F59E0B",
+      "warm_bg": "rgba(245, 158, 11, 0.15)",
+      "cold": "#3B82F6",
+      "cold_bg": "rgba(59, 130, 246, 0.15)",
+      "won": "#10B981",
+      "won_bg": "rgba(16, 185, 129, 0.15)"
+    }
+  },
+  "spacing_and_layout": {
+    "mobile_container": "Since this is a mobile web app acting as an Expo app, wrap the main view in `max-w-md mx-auto h-[100dvh] relative overflow-hidden bg-[#0A0A0A] text-white shadow-2xl` to simulate a phone viewport.",
+    "padding": "Use `p-4` or `p-5` for screen edges. Increase internal container padding to `p-6` for breathing room.",
+    "border_radius": "Use `rounded-2xl` or `rounded-3xl` for main cards, `rounded-full` for buttons and badges.",
+    "kanban_board": "Use `flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-hide` for the pipeline. Columns should be `min-w-[85%] snap-center`."
+  },
+  "components": {
+    "bottom_navigation": {
+      "style": "Glassmorphism. `fixed bottom-0 w-full max-w-md backdrop-blur-2xl bg-[#0A0A0A]/80 border-t border-white/10 pb-safe pt-2 px-4 z-50`",
+      "items": "Flex justify-between. Active item uses `#FF6B00` icon/text. Inactive uses `#A3A3A3`."
+    },
+    "cards": {
+      "base": "`bg-[#111111] border border-white/5 rounded-2xl overflow-hidden`",
+      "glass": "`backdrop-blur-xl bg-white/[0.02] border border-white/10 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]`",
+      "kpi_card": "Minimalist, big numbers. Example: `text-3xl font-bold` for metric, `text-sm text-neutral-400` for label, tiny sparkline or arrow for trend."
+    },
+    "buttons": {
+      "primary": "`bg-[#FF6B00] text-white rounded-full font-bold py-3 px-6 hover:bg-[#E66000] active:scale-95 transition-all`",
+      "secondary": "`bg-white/10 text-white rounded-full font-semibold py-3 px-6 hover:bg-white/20 active:scale-95 transition-all`",
+      "fab": "`absolute bottom-20 right-4 w-14 h-14 bg-[#FF6B00] rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(255,107,0,0.4)] active:scale-90 z-40`"
+    },
+    "badges": {
+      "style": "`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider`"
+    },
+    "inputs": {
+      "style": "`bg-[#1A1A1A] border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00] transition-all`"
+    }
+  },
+  "interactions": {
+    "transitions": "Use `framer-motion` for screen transitions (slide in/out), modal appearances (scale up), and tab switching.",
+    "micro_interactions": "All touch targets must have `active:opacity-70` or `active:scale-95`.",
+    "scroll": "Hide scrollbars via CSS (`::-webkit-scrollbar { display: none; }` or `scrollbar-width: none`)."
+  },
+  "media": {
+    "properties": [
+      {
+        "url": "https://images.unsplash.com/photo-1776500588108-1e059459f14c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjByZWFsJTIwZXN0YXRlJTIwbW9kZXJuJTIwaG91c2UlMjBleHRlcmlvcnxlbnwwfHx8fDE3NzgwNTQ3NzF8MA&ixlib=rb-4.1.0&q=85",
+        "description": "White luxury car parked in front of modern white house."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1766603636483-84b2a2b8ee89?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjByZWFsJTIwZXN0YXRlJTIwbW9kZXJuJTIwaG91c2UlMjBleHRlcmlvcnxlbnwwfHx8fDE3NzgwNTQ3NzF8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Modern house with wooden facade."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1761347603872-060d6e2debb9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjByZWFsJTIwZXN0YXRlJTIwbW9kZXJuJTIwaG91c2UlMjBleHRlcmlvcnxlbnwwfHx8fDE3NzgwNTQ3NzF8MA&ixlib=rb-4.1.0&q=85",
+        "description": "A modern beige house."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1638454795595-0a0abf68614d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBhcGFydG1lbnQlMjBsdXh1cnklMjBpbnRlcmlvcnxlbnwwfHx8fDE3NzgwNTQ3NzF8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Modern luxury apartment living room."
+      }
+    ],
+    "avatars": "Generate UI avatars using standard UI Faces or Dicebear styles for CRM contacts."
+  },
+  "instructions_to_main_agent": [
+    "Install `lucide-react` for consistent iconography. Use `framer-motion` for screen and tab animations.",
+    "Since this is a mobile CRM, enforce a mobile-constrained viewport layout (`max-w-md mx-auto`) with a fixed bottom navigation bar.",
+    "Implement JWT Auth context with email/password login screen using the orange/black branding.",
+    "Include sample seed data for Dashboard, Leads, Properties, Contacts, Deals (Kanban), and Tasks.",
+    "For the Kanban pipeline, use horizontal scroll `overflow-x-auto` with snap points for columns (New -> Contacted -> Site Visit -> Negotiation -> Closed).",
+    "Lead detail view must include a section for 'AI Summary' with a glassmorphism card or distinct border styling.",
+    "Ensure all interactive elements (buttons, inputs, tabs, list items) have a `data-testid` attribute following the `kebab-case` convention.",
+    "Make charts (like revenue or conversion rate) using Recharts or simple CSS-based sparklines with the #FF6B00 brand color."
+  ]
+}
