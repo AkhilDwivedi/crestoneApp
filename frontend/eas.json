@@ -1,0 +1,32 @@
+{
+  "cli": {
+    "version": ">= 7.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://realty-connect-113.preview.emergentagent.com"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://realty-connect-113.preview.emergentagent.com"
+      }
+    },
+    "production": {
+      "android": { "buildType": "apk" },
+      "env": {
+        "EXPO_PUBLIC_BACKEND_URL": "https://YOUR_PRODUCTION_BACKEND_DOMAIN"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
