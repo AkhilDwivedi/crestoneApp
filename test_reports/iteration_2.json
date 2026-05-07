@@ -1,0 +1,59 @@
+{
+  "summary": "v2 testing of Crestone Realty CRM (multi-agent, documents, WhatsApp templates, property filters, push token). Backend: 16/16 new pytest tests pass + 16/16 prior v1 tests still pass. Frontend: login (no demo prefill), admin login -> dashboard, properties chips/search/filter panel, lead detail Assigned-to card, WhatsApp sheet with all 6 templates, Documents + Add button, admin reassign sheet listing users, and agent-side hiding of reassign + scoped lead list (5 leads) all verified.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "lead/[id].tsx Assigned-to card",
+        "issue": "Spec calls the admin action 'Change' but the rendered button text is 'Assign'. Wording mismatch only; functionality works (opens assign sheet).",
+        "testID": "lead-reassign",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "global",
+        "issues": [
+          "Console warning: 'props.pointerEvents is deprecated. Use style.pointerEvents' (RN-Web). Cosmetic only."
+        ]
+      }
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_v2_features.py",
+    "/app/backend/tests/test_propflo_api.py",
+    "/app/test_reports/pytest/v2_results.xml"
+  ],
+  "action_items": [
+    "(Optional) Rename the admin reassign button label from 'Assign' to 'Change' to match the v2 spec wording.",
+    "(Optional) The assign-user sheet lists stale legacy users (e.g. 'PropFlo Admin', 'agent@propflo.com', plus several test users created during prior pytest runs). Consider scoping `/api/users` to active staff only or pruning stale demo users to keep the assignee list clean.",
+    "(Carryover from iteration_1) AI summary depends on EMERGENT_LLM_KEY budget which was previously exhausted; not retested this iteration."
+  ],
+  "critical_code_review_comments": [
+    "Multi-agent visibility implemented via visibility_filter() — agents see only assigned + unassigned, admins see all. Verified for /api/leads, /api/deals, /api/tasks, /api/dashboard/stats.",
+    "PUT /api/leads/{id}/assign correctly enforces admin-only and triggers async push_send to the new assignee — push code is best-effort and won't fail the request.",
+    "Document size cap (4_500_000 chars of base64 ≈ 3 MB raw) raises 413 correctly. Documents stored embedded in lead doc — fine for the stated <=3MB cap but watch Mongo 16MB doc limit for leads with many docs.",
+    "GET /api/leads/{id}/documents correctly strips content_base64 in list view; full payload only on /documents/{doc_id}.",
+    "GET /api/properties supports search (regex on title/location/description), type, status, min/max price, bedrooms — all verified.",
+    "POST /api/auth/push-token persists expo_push_token on the user document.",
+    "seed_demo_data is gated on leads count == 0; seed_users is idempotent and re-syncs admin password from env on startup as documented.",
+    "server.py is now 974 lines (>700-line guideline). Recommend splitting into routers/auth.py, routers/leads.py, routers/properties.py, routers/documents.py, services/push.py, services/seed.py, etc. for maintainability."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_v2_features.py (created)"
+  ],
+  "success_rate": {
+    "backend": "100% (16/16 new v2 + 16/16 v1 carryover)",
+    "frontend": "~98% (only wording mismatch found: 'Assign' vs spec's 'Change')"
+  },
+  "seed_data_creation": "Used backend's built-in seeding (Delhi NCR data: 6 leads, 8 properties, 6 deals, 4 contacts, 5 tasks). Confirmed counts and that locations include Gurgaon / Noida / Delhi.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Use EXPO_PUBLIC_BACKEND_URL=https://realty-connect-113.preview.emergentagent.com. Tests in /app/backend/tests/test_v2_features.py and test_propflo_api.py are the regression suite. The properties search, type chips, filter panel, WA template sheet, documents + Add, admin reassign sheet all work via testIDs (properties-search-input, properties-filter-btn, prop-type-{All|Apartment|Villa|Plot|Office}, lead-action-whatsapp, whatsapp-sheet, wa-template-{intro|brochure|site_visit|followup|offer|congratulations}, lead-add-document, lead-reassign, assign-sheet, assign-{user_id}). Agent login (agent@crestone.com/agent123) confirms multi-agent visibility: shows 5 of 6 seeded leads (the 'Ananya Kapoor' lead is assigned to admin and is correctly hidden from agent view) and the lead-reassign control is hidden.",
+  "rca_of_issue": "No new bugs requiring RCA. Wording mismatch on lead-reassign button ('Assign' vs spec 'Change') is a label-only change in /app/frontend/app/lead/[id].tsx around line 216."
+}

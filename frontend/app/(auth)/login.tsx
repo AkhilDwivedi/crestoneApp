@@ -12,8 +12,8 @@ import { colors, radius, spacing, typography } from '../../src/theme';
 export default function Login() {
   const router = useRouter();
   const { login } = useAuth();
-  const [email, setEmail] = useState('admin@propflo.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPwd, setShowPwd] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
@@ -103,11 +103,6 @@ export default function Login() {
               </Link>
             </View>
 
-            <View style={styles.demoBox}>
-              <Text style={styles.demoTitle}>Demo credentials</Text>
-              <Text style={styles.demoText}>admin@propflo.com / admin123</Text>
-              <Text style={styles.demoText}>agent@propflo.com / agent123</Text>
-            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

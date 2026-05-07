@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { api, getToken, setToken, User } from './api';
+import { registerForPush } from './push';
 
 type AuthState = {
   user: User | null | undefined; // undefined = checking
@@ -23,6 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         const { data } = await api.get('/auth/me');
         setUser(data);
+        registerForPush().catch(() => {});
       } catch {
         await setToken(null);
         setUser(null);
@@ -34,12 +36,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data } = await api.post('/auth/login', { email, password });
     await setToken(data.access_token);
     setUser(data.user);
+    registerForPush().catch(() => {});
   };
 
   const register = async (email: string, password: string, name: string) => {
     const { data } = await api.post('/auth/register', { email, password, name });
     await setToken(data.access_token);
     setUser(data.user);
+    registerForPush().catch(() => {});
   };
 
   const logout = async () => {
