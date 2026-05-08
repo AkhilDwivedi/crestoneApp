@@ -22,7 +22,7 @@
     "production": {
       "android": { "buildType": "apk" },
       "env": {
-        "EXPO_PUBLIC_BACKEND_URL": "https://YOUR_PRODUCTION_BACKEND_DOMAIN"
+        "EXPO_PUBLIC_BACKEND_URL": "https://crestoneapp-production.up.railway.app"
       }
     }
   },
